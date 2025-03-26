@@ -18,7 +18,7 @@
 Managing high volumes of customer service emails is a major challenge for financial institutions.  
 Banks receive thousands of emails daily, with inquiries about **transactions, refunds, security issues, and credit card requests**.  
 
-This project, **GenAI Email Classification System**, leverages **Generative AI (LLaMA 2/3)** to automate email triage by classifying emails into structured **Request Types** and **Sub-Types**.
+This project, **GenAI Email Classification System**, leverages **Generative AI (Llama-Vision-Free)** to automate email triage by classifying emails into structured **Request Types** and **Sub-Types**.
 
 ## 🎥 Demo
 🔗 [Live Demo](#) (if applicable)  
@@ -36,10 +36,10 @@ By using **AI-driven classification**, we can make email management more efficie
 
 ## ⚙️ What It Does
 ✅ **Extracts email content** from `.eml` files  
-✅ **Uses LLaMA 2/3** to classify emails into **Request Type & Sub-Type**  
+✅ **Uses Llama-Vision-Free** to extract the content from .eml and pdf files to classify emails into **Request Type & Sub-Type**  
+✅ **Not just the Request and Sub Type, provides additional details like Confidence score, Deal name, Sender, Reciever, Amount and Dates**  
 ✅ **Provides a user-friendly UI** to upload emails & view results  
-✅ **Connects to a FastAPI backend** for real-time processing  
-✅ **Supports both personal and enterprise Gmail accounts**  
+✅ **Connects to a Flask backend** for real-time processing  
 
 ## 🛠️ How We Built It
 ### **1️⃣ Research & Planning**
@@ -48,22 +48,22 @@ By using **AI-driven classification**, we can make email management more efficie
 - Designed a taxonomy of **Request Types & Sub-Types**.  
 
 ### **2️⃣ Backend Development**
-- **Built with FastAPI** for handling API requests.  
-- **Integrated LLaMA 2 via Ollama** for AI-driven classification.  
+- **Built with Flask** for handling API requests.  
+- **Integrated Llama-Vision-Free via ChatTogether** for AI-driven classification.  
 - **Used `mailparser`** to extract email metadata & content from `.eml` files.  
 
 ### **3️⃣ Frontend Development**
-- Created an **interactive UI** using React + TailwindCSS.  
-- Added **file upload functionality** for `.eml` files.  
+- Created an **interactive UI** using HTML + CSS + Javascript.  
+- Added **file upload functionality** for `.eml` and `.pdf` files.  
 - Displayed classification results dynamically.  
 
 ### **4️⃣ Testing & Optimization**
-- Fine-tuned **LLaMA 2 prompts** for higher classification accuracy.  
+- Fine-tuned **Llama-Vision-Free prompts** for higher classification accuracy.  
 - Handled **edge cases** like empty emails, forwarded emails, and different formats.  
 - Improved **API response time** by optimizing file handling.  
 
 ## 🚧 Challenges We Faced
-🚀 **Challenge 1: Running LLaMA 2 on a Low-Memory System**  
+🚀 **Challenge 1: Running Llama-Vision-Free on a Low-Memory System**  
    - Optimized model by using **quantized versions** to reduce memory footprint.  
 
 🚀 **Challenge 2: Parsing Complex Emails**  
@@ -91,7 +91,7 @@ python -m venv env (to setup virtual environment)
 source env/bin/activate
 pip install -r requirements.txt
 python app.py
-uvicorn app:app --host 0.0.0.0 --port 8000 --reload
+Running on http://127.0.0.1:5000
 ```
 
 ### **3️⃣ Frontend Setup**
@@ -104,7 +104,7 @@ Now, open **http://localhost:3000** to access the UI.
 
 ## 🏗️ Tech Stack
 - 🔹 **Frontend:** HTML, CSS, Javascript  
-- 🔹 **Backend:** Flask, Uvicorn  
+- 🔹 **Backend:** Flask
 - 🔹 **AI Model:** meta-llama/Llama-Vision-Free via ChatTogether  
 - 🔹 **Email Processing:** `mailparser`
 - 🔹 **Duplicates Detection:** `TfidfVectorizer` and Cosine similarity
