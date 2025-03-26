@@ -20,12 +20,19 @@ Banks receive thousands of emails daily, with inquiries about **transactions, re
 
 This project, **Triage Master - GenAI Email Classification System**, leverages **Generative AI (Llama-Vision-Free) model** to automate email triage by classifying emails into structured **Request Types** and **Sub-Types**.
 
-## 🎥 Demo
-🔗 [Live Demo](#) (if applicable)  
-📹 [Video Demo](#) (if applicable)  
-🖼️ Screenshots:
+### **✅ Solution: AI-Powered Email Classification**
+Our system **automates classification** into structured categories:  
 
-![Screenshot 1](link-to-image)
+| **Request Type**           | **Sub-Type** |
+|----------------------------|-------------|
+| **Money Movement - Inbound**  | Principal, Interest, Principal + Interest, Principal + Interest + Fee |
+| **Money Movement - Outbound** | Timebound, Foreign Currency |
+| **Commitment Change** | Cashless Roll, Decrease, Increase |
+| **Fee Payment** | Outoing Fee, Letter of Credit Fee |
+| **Closing Notice** | Reallocation Fees, Amendment Fees, Reallocation Principal |
+
+## 🎥 Demo
+📹 [Watch Video Demo](artifacts/demo/Demo_Intelli_Triage.mp4)
 
 ## 💡 Inspiration
 Traditional **rule-based email processing systems** often fail when emails contain unstructured or complex text.  
@@ -33,6 +40,12 @@ By using **AI-driven classification**, we can make email management more efficie
 ✅ **Faster customer support response times**  
 ✅ **Reduced manual effort for banking teams**  
 ✅ **Higher accuracy in routing emails to the correct department**  
+
+## 🏗️ Architecture Diagram
+![System Architecture](artifacts/arch/Architecture_Diagram.png)
+
+## 🔀 Flow Chart
+![Flow Chart](artifacts/arch/Flowchart.png)
 
 ## ⚙️ What It Does
 ✅ **Extracts email content** from `.eml` files  
@@ -118,9 +131,9 @@ Now, open **(http://127.0.0.1:5000)** to access the UI.
 
 
 ## 👥 Team
-- **Jahangir Pasha** (Jahangir.Pasha@wellsfargo.com)
-- **Murali Kuna** (Murali.Kuna@wellsfargo.com)
-- **Trivedh Madala** (Trivedh.Madala@wellsfargo.com)
-- **Pavankishore Kancharla** (Pavankishore.Kancharla@wellsfargo.com)
+- **Jahangir Pasha**
+- **Murali Kuna**
+- **Trivedh Madala**
+- **Pavankishore Kancharla**
 ---
 🚀 **This is just the beginning! Looking forward to scaling this AI-powered email triage system.**
