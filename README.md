@@ -83,29 +83,34 @@ cd gaied-intelli-triage
 
 ### **2️⃣ Backend Setup**
 ```sh
-cd backend
+cd gaied-intelli-triage
+cd code
+cd src
+cd Backend
+python -m venv env (to setup virtual environment)
+source env/bin/activate
 pip install -r requirements.txt
+python app.py
 uvicorn app:app --host 0.0.0.0 --port 8000 --reload
 ```
 
 ### **3️⃣ Frontend Setup**
 ```sh
 cd frontend
-npm install
-npm start
+index.html
 ```
 
 Now, open **http://localhost:3000** to access the UI.
 
 ## 🏗️ Tech Stack
-- 🔹 **Frontend:** React, TailwindCSS  
-- 🔹 **Backend:** FastAPI, Uvicorn  
-- 🔹 **AI Model:** LLaMA 2 via Ollama  
-- 🔹 **Email Processing:** `mailparser`  
-- 🔹 **Storage:** SQLite (for logging email processing)  
+- 🔹 **Frontend:** HTML, CSS, Javascript  
+- 🔹 **Backend:** Flask, Uvicorn  
+- 🔹 **AI Model:** meta-llama/Llama-Vision-Free via ChatTogether  
+- 🔹 **Email Processing:** `mailparser`
+- 🔹 **Duplicates Detection:** `TfidfVectorizer` and Cosine similarity
 
 ## 🚀 Future Enhancements
-📌 **Gmail API Integration** – Directly fetch unread emails for real-time classification.  
+📌 **Gmail/Outlook API Integration** – Directly fetch unread emails for real-time classification.  
 📌 **Multi-Language Support** – Handle emails in different languages.  
 📌 **Enhanced UI Analytics** – Add a dashboard for email trends & classification stats.  
 📌 **Fine-tuning LLaMA** – Improve accuracy by training on a custom dataset.  
