@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TriageBot - Email & Document Triage System</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: #fff;
+            margin: 0;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/subtle-waves.png') repeat;
+            background-size: 300px 300px; /* Adjust pattern scale */
+            opacity: 0.15; /* Slightly more visible */
+            z-index: -1;
+            mix-blend-mode: overlay; /* Blend with gradient for depth */
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h1 {
+            font-size: 3em;
+            color: #f1c40f;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+            margin: 0;
+            font-weight: 700;
+        }
+        .subtitle {
+            font-size: 1.3em;
+            color: #ecf0f1;
+            margin-top: 5px;
+            font-weight: 300;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 700px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        label {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            display: block;
+            color: #f1c40f;
+            font-weight: 500;
+        }
+        .upload-box {
+            position: relative;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin: 20px 0;
+        }
+        .upload-box::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #f1c40f, #e67e22);
+            border-radius: 17px;
+            z-index: -1;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        .upload-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(241, 196, 15, 0.3);
+        }
+        .upload-box:hover::before {
+            opacity: 1;
+        }
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            background: none;
+            border: none;
+            color: #ecf0f1;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        input[type="file"]::-webkit-file-upload-button {
+            background: linear-gradient(90deg, #e67e22, #e74c3c);
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            color: #fff;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        input[type="file"]::-webkit-file-upload-button:hover {
+            transform: scale(1.05);
+        }
+        button {
+            background: linear-gradient(90deg, #e67e22, #e74c3c);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            color: #fff;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-weight: 600;
+        }
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.5);
+        }
+        #result {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: left;
+            max-height: 450px;
+            overflow-y: auto;
+            margin-top: 25px;
+            font-size: 1em;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .section-heading {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #f1c40f;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .section-heading:hover {
+            color: #f39c12;
+        }
+        .field-item {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        .field-item p {
+            margin: 6px 0;
+            line-height: 1.4;
+        }
+        .field-item strong {
+            color: #e67e22;
+            font-weight: 600;
+        }
+        details[open] .section-heading::after {
+            content: " ▼";
+        }
+        details:not[open] .section-heading::after {
+            content: " ►";
+        }
+        .error-message {
+            color: #e74c3c;
+            font-weight: bold;
+            text-align: center;
+        }
+        .footer {
+            font-size: 0.95em;
+            color: #e6e611;
+            margin-top: 25px;
+            text-align: center;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="header">
+        <h1>TriageBot - Smart Email Triage Application</h1>
+        <div class="subtitle">Technology Hackathon</div>
+    </div>
+    <div class="container">
+        <form id="fileForm" enctype="multipart/form-data">
+            <label>Upload a PDF or EML File:</label>    
+            <div class="upload-box">
+                <input type="file" name="files" accept=".pdf,.eml" required>
+            </div>
+            <button type="submit">Analyze</button>
+        </form>
+        <div id="result">Results will appear here...</div>
+        <div class="footer">Developed by Team Intelli-Triage</div>
+    </div>
+
+    <script>
+        document.getElementById('fileForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            document.getElementById('result').textContent = "Processing...";
+            try {
+                const response = await fetch('/process', { method: 'POST', body: formData });
+                const result = await response.json();
+                console.log('Raw Response:', result);
+                displayResult(result);
+            } catch (error) {
+                document.getElementById('result').textContent = `Error: ${error.message}`;
+            }
+        });
+
+        function displayResult(data) {
+            const resultDiv = document.getElementById('result');
+            if (data.error || !data.primary_request) {
+                resultDiv.innerHTML = `<p class="error-message">Error: ${data.error || 'Invalid response format'}</p>`;
+                return;
+            }
+
+            resultDiv.innerHTML = `
+                <div class="section-heading">Request Details</div>
+                <div class="field-item">
+                    <div class="section-heading">Primary Request</div>
+                    <div id="primary-request"></div>
+                </div>
+                <div class="field-item">
+                    <div class="section-heading">Request Types Detected</div>
+                    <div id="request-types"></div>
+                </div>
+                <div class="field-item">
+                    <details>
+                        <summary class="section-heading">Other Fields Extracted</summary>
+                        <div id="extracted-fields"></div>
+                    </details>
+                </div>
+                <div class="field-item">
+                    <details>
+                        <summary class="section-heading">Duplicate Check</summary>
+                        <div id="duplicate"></div>
+                    </details>
+                </div>
+            `;
+
+            const primary = data.primary_request;
+            document.getElementById('primary-request').innerHTML = `
+                <p><strong>Type:</strong> ${primary.type}</p>
+                <p><strong>Sub-Type:</strong> ${primary.sub_type || 'None'}</p>
+                <p><strong>Reasoning:</strong> ${primary.reasoning}</p>
+            `;
+
+            const requestTypes = data.request_types || [];
+            document.getElementById('request-types').innerHTML = requestTypes.map(rt => `
+                <div>
+                    <p><strong>Type:</strong> ${rt.type}</p>
+                    <p><strong>Sub-Type:</strong> ${rt.sub_type || 'None'}</p>
+                    <p><strong>Confidence:</strong> ${rt.confidence}</p>
+                    <p><strong>Reasoning:</strong> ${rt.reasoning}</p>
+                    <hr style="border-color: rgba(255, 255, 255, 0.3);">
+                </div>
+            `).join('');
+
+            const fields = data.extracted_fields || {};
+            document.getElementById('extracted-fields').innerHTML = Object.entries(fields).map(([key, value]) => `
+                <p><strong>${key}:</strong> ${value === null ? 'Not Found' : value}</p>
+            `).join('');
+
+            const duplicate = data.duplicate || { is_duplicate: false, reason: 'Not checked' };
+            document.getElementById('duplicate').innerHTML = `
+                <p><strong>Is Duplicate:</strong> ${duplicate.is_duplicate ? 'Yes' : 'No'}</p>
+                <p><strong>Reason:</strong> ${duplicate.reason}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
