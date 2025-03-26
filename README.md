@@ -1,4 +1,4 @@
-# 🚀 GenAI Email Classification System
+# 🚀 Triage Master - GenAI Email Classification System (By Team Intelli-Triage)
 
 ## 📌 Table of Contents
 - [Introduction](#introduction)
@@ -18,7 +18,7 @@
 Managing high volumes of customer service emails is a major challenge for financial institutions.  
 Banks receive thousands of emails daily, with inquiries about **transactions, refunds, security issues, and credit card requests**.  
 
-This project, **GenAI Email Classification System**, leverages **Generative AI (Llama-Vision-Free)** to automate email triage by classifying emails into structured **Request Types** and **Sub-Types**.
+This project, **Triage Master - GenAI Email Classification System**, leverages **Generative AI (Llama-Vision-Free) model** to automate email triage by classifying emails into structured **Request Types** and **Sub-Types**.
 
 ## 🎥 Demo
 🔗 [Live Demo](#) (if applicable)  
@@ -44,13 +44,13 @@ By using **AI-driven classification**, we can make email management more efficie
 ## 🛠️ How We Built It
 ### **1️⃣ Research & Planning**
 - Studied common email classification challenges in banking.  
-- Created a dataset of **real-world banking emails** for testing.  
+- Created a dataset of **real-world banking emails** for testing (both pdf and eml files).  
 - Designed a taxonomy of **Request Types & Sub-Types**.  
 
 ### **2️⃣ Backend Development**
 - **Built with Flask** for handling API requests.  
-- **Integrated Llama-Vision-Free via ChatTogether** for AI-driven classification.  
-- **Used `mailparser`** to extract email metadata & content from `.eml` files.  
+- **Integrated Llama-Vision-Free via ChatTogether (TogetherAI)** for AI-driven classification.  
+- **Used `email` and `pdf2image` to extract email metadata & content from `.eml` and `pdf` files.  
 
 ### **3️⃣ Frontend Development**
 - Created an **interactive UI** using HTML + CSS + Javascript.  
@@ -68,7 +68,7 @@ By using **AI-driven classification**, we can make email management more efficie
 
 🚀 **Challenge 2: Parsing Complex Emails**  
    - Some emails had **embedded HTML and attachments**.  
-   - Used `mailparser` and **fallback methods** to extract the correct text.  
+   - Used ocr and email modules and **fallback methods** to extract the correct text.  
 
 🚀 **Challenge 3: Ensuring Accurate Classification**  
    - Fine-tuned prompts and added **post-processing filters**.  
@@ -100,20 +100,22 @@ cd frontend
 index.html
 ```
 
-Now, open **http://localhost:3000** to access the UI.
+Now, open **(http://127.0.0.1:5000)** to access the UI.
 
 ## 🏗️ Tech Stack
 - 🔹 **Frontend:** HTML, CSS, Javascript  
 - 🔹 **Backend:** Flask
 - 🔹 **AI Model:** meta-llama/Llama-Vision-Free via ChatTogether  
-- 🔹 **Email Processing:** `mailparser`
-- 🔹 **Duplicates Detection:** `TfidfVectorizer` and Cosine similarity
+- 🔹 **Email Processing:** `email`, `ocr` and `pdf2image`
+- 🔹 **Duplicates Detection:** `TfidfVectorizer` and `Cosine similarity` (Used local db, would like to extend it by integrating with databases like MongoDB or SQL)
 
 ## 🚀 Future Enhancements
 📌 **Gmail/Outlook API Integration** – Directly fetch unread emails for real-time classification.  
 📌 **Multi-Language Support** – Handle emails in different languages.  
 📌 **Enhanced UI Analytics** – Add a dashboard for email trends & classification stats.  
 📌 **Fine-tuning LLaMA** – Improve accuracy by training on a custom dataset.  
+📌 **Database Integration** – Integrating with databases like MongoDB or SQL
+
 
 ## 👥 Team
 - **Jahangir Pasha** (Jahangir.Pasha@wellsfargo.com)
